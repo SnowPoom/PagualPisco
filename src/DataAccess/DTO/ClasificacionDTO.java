@@ -1,13 +1,3 @@
-/*
-|-------------------------------------|
-| © 2024 EPN-FIS, All rights reserved |
-| antony.cobos@epn.edu.ec             |
-|-------------------------------------|
-Autor: Antony Cobos
-Fecha: 28 - 02 - 2024
-Script: DTO de Clasificacion
-*/
-
 package DataAccess.DTO;
 
 public class ClasificacionDTO {
