@@ -1,26 +1,33 @@
-/*
-|-------------------------------------|
-| © 2024 EPN-FIS, All rights reserved |
-| antony.cobos@epn.edu.ec             |
-|-------------------------------------|
-Autor: Antony Cobos && Christian Pisco
-Fecha: 28 - 02 - 2024
-Script: Clase Hormiga
-*/
-
 package DataAccess.DTO;
 
 public class HormigaDTO {
-    private Integer IdHormiga, IdAntBot, IdClasificacion;
-    private String Codigo, Estado,FechaCrea,FechaModifica;
-    
+    private Integer IdHormiga, 
+                    IdAntBot, 
+                    IdClasificacion;
+    private String  Codigo, 
+                    Estado,
+                    FechaCrea,
+                    FechaModifica;
+    private Integer Comio, 
+                    Recogio;
+
     public HormigaDTO(){}
 
-    public HormigaDTO(Integer idHormiga, Integer idAntBot,String codigo, Integer idClasificacion, String Estado, String FechaCrea, String FechaModifica) {
-        this.IdHormiga = idHormiga;
-        this.Codigo=codigo;
-        this.IdClasificacion = idClasificacion;
-        this.IdAntBot = idAntBot;
+    public HormigaDTO(Integer IdHormiga, 
+                      Integer IdAntBot,
+                      String Codigo, 
+                      Integer IdClasificacion, 
+                      String Estado,
+                      String FechaCrea,
+                      String FechaModifica,
+                      Integer Comio,
+                      Integer Recogio) {
+        this.IdHormiga = IdHormiga;
+        this.Codigo=Codigo;
+        this.IdClasificacion = IdClasificacion;
+        this.IdAntBot = IdAntBot;
+        this.Comio = Comio;
+        this.Recogio = Recogio;
         this.Estado=Estado;
         this.FechaCrea=FechaCrea;
         this.FechaModifica=FechaModifica;
@@ -82,4 +89,19 @@ public class HormigaDTO {
         FechaModifica = fechaModifica;
     }
 
+    public Integer getComio() {
+        return Comio;
+    }
+
+    public void setComio(Integer comio) {
+        Comio = comio;
+    }
+
+    public Integer getRecogio() {
+        return Recogio;
+    }
+
+    public void setRecogio(Integer recogio) {
+        Recogio = recogio;
+    }
 }

@@ -1,13 +1,3 @@
-/*
-|-------------------------------------|
-| © 2024 EPN-FIS, All rights reserved |
-| antony.cobos@epn.edu.ec             |
-|-------------------------------------|
-Autor: Jonathan Pagual && Christian Pisco
-Fecha: 28 - 02 - 2024
-Script: Clase Hormiga
-*/
-
 package DataAccess;
 
 import java.sql.Connection;
@@ -30,13 +20,17 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
         String query = "INSERT INTO Hormiga("
                 + " Codigo,"
                 + " IdClasificacion,"
-                + " IdAntBot) VALUES(?,?,?) ";
+                + " IdAntBot,"
+                + " Comio"
+                + " Recogio) VALUES(?, ?, ?, ?, ?) ";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getCodigo());
             pstmt.setInt(2, entity.getIdClasificacion());
             pstmt.setInt(3, entity.getIdAntBot());
+            pstmt.setInt(4, entity.getComio());
+            pstmt.setInt(5, entity.getRecogio());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -53,6 +47,8 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
                 + " ,IdAntBot"
                 + " ,Codigo"
                 + " ,IdClasificacion"
+                + " ,Comio"
+                + " ,Recogio"
                 + " ,Estado"
                 + " ,FechaCrea"
                 + " ,FechaModifica"
@@ -70,7 +66,9 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7));
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9));
                 lst.add(oHormigaDTO);
             }
         } catch (SQLException e) {
@@ -87,6 +85,8 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
                 + " ,IdAntBot"
                 + " ,Codigo"
                 + " ,IdClasificacion"
+                + " ,Comio"
+                + " ,Recogio"
                 + " ,Estado"
                 + " ,FechaCrea,"
                 + " FechaModifica"
@@ -104,7 +104,9 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7));
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9));
             }
         } catch (SQLException e) {
             throw new AntException(e.getMessage(), getClass().getName(), "readAll()");
@@ -122,6 +124,8 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
                 + " ,IdAntBot=?"
                 + " ,Codigo=?"
                 + " ,IdClasificacion=?"
+                + " ,Comio=?"
+                + " ,Recogio=?"
                 + " ,FechaModifica=?"
                 + " FROM   Hormiga             "
                 + " WHERE  Estado = 'A'  ";
@@ -133,7 +137,9 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
             pstmt.setInt(2, entity.getIdAntBot());
             pstmt.setString(3, entity.getCodigo());
             pstmt.setInt(4, entity.getIdClasificacion());
-            pstmt.setString(5, dtf.format(now).toString());
+            pstmt.setInt(5, entity.getComio());
+            pstmt.setInt(6, entity.getRecogio());
+            pstmt.setString(7, dtf.format(now).toString());
 
             pstmt.executeUpdate();
             return true;
