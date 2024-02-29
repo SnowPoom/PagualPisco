@@ -34,9 +34,10 @@ public class PPProcesoReina {
                 ppOHormigaDTO.setIdClasificacion(1);
                 ppHormigaBL.add(ppOHormigaDTO);
                 ppAlimentoInicio.remove(0);
-            }
+            }else{
             pplarvas.remove(0);
             ppAlimentoInicio.remove(0);
+        }
         }
 
     }
@@ -51,6 +52,7 @@ public class PPProcesoReina {
                 oHormigaDTO.setIdClasificacion(ppHormigasActuales.get(0).getIdClasificacion());
                 oHormigaDTO.setComio(ppHormigasActuales.get(0).getComio());
                 oHormigaDTO.setRecogio(1);
+                oHormigaDTO.setEstado("A");
                 ppHormigaBL.update(oHormigaDTO);
                 ppAlimentoInicio.remove(0);
                 ppHormigasActuales.remove(0);
