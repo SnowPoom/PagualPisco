@@ -10,6 +10,6 @@ public class App {
         // MainForm oForm = new MainForm("XD");
     PPProcesoReina p1=new PPProcesoReina();
     p1.ppAlimentarLarvas();
-    
+    p1.ppBuscando();
     }
 }
