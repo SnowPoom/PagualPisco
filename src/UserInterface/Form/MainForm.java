@@ -36,6 +36,8 @@ public class MainForm extends JFrame implements ActionListener {
           item2.addActionListener(this);
           //si van a agregar mas opciones en el menu agregar nuevos JMenuItem en la parte de arriba y añadir al menu        
           // menu.add(item);
+          menu.add(item1);
+          menu.add(item2);
           menuBar.add(menu);
           setJMenuBar(menuBar);
   
@@ -51,7 +53,7 @@ public class MainForm extends JFrame implements ActionListener {
           setLayout(cardLayout);
           // usar esta estructura para añadir los paneles  a la ventana
           add(ppPnlHormiga, "Panel Hormigas");
-          add(ppPnlHormiga, "Panel Extra 1");
+          add(ppPnlHormigaClasificacion, "Panel Extra 1");
           
           isVisible();
           setLocationRelativeTo(null);

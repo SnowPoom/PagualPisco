@@ -131,6 +131,7 @@ public class PPPnlHormiga extends JPanel implements  ActionListener {
     
 //**********************************************
     private AntLabel 
+        lblInfo     = new AntLabel("EXTRA EN LA ESQUINA SUPERIOR IZQ (PRESIONAR MENU)"),
         lblTitulo     = new AntLabel("INFO HORMIGAS"),
         lblTotalReg   = new AntLabel("  0 de 0  ");
     private AntButton  
@@ -168,26 +169,32 @@ public class PPPnlHormiga extends JPanel implements  ActionListener {
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Titulo
+        // Info
         gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        add(lblInfo, gbc);
+
+        // Titulo
+        gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 3;
         add(lblTitulo, gbc);
 
         // Sección de datos (Tabla)
-        gbc.gridy = 1;
+        gbc.gridy = 2;
         gbc.weighty = 0;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.BOTH;
         add(pnlTabla, gbc);
 
         // Sección de paginación
-        gbc.gridy = 2;
+        gbc.gridy = 3;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(pnlBtnPage, gbc);
         // Sección de paginación
-        gbc.gridy = 3;
+        gbc.gridy = 4;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(ppPnlBtnBuscar, gbc);
