@@ -113,6 +113,42 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
         }
         return oHormigaDTO;
     }
+    
+    public HormigaDTO ppReadLarvas(Integer id) throws Exception {
+        HormigaDTO oHormigaDTO = new HormigaDTO();
+        String query = "SELECT    "
+                + " IdHormiga"
+                + " ,IdAntBot"
+                + " ,Codigo"
+                + " ,IdClasificacion"
+                + " ,Comio"
+                + " ,Recogio"
+                + " ,Estado"
+                + " ,FechaCrea,"
+                + " FechaModifica"
+                + " FROM   Hormiga             "
+                + " WHERE Estado = 'A' AND IdClasificacion IN (1, 3) AND IdHormiga = ?" + id.toString();
+
+        try {
+            Connection conn = openConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                oHormigaDTO = new HormigaDTO(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getInt(9));
+            }
+        } catch (SQLException e) {
+            throw new AntException(e.getMessage(), getClass().getName(), "readAll()");
+        }
+        return oHormigaDTO;
+    }
 
     @Override
     public boolean update(HormigaDTO entity) throws Exception {
