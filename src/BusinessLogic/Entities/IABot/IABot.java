@@ -1,6 +1,9 @@
 package BusinessLogic.Entities.IABot;
 
-public  class IABot implements PPIIA  {
+import BusinessLogic.Entities.ProcesoReina.PPAlimento;
+import BusinessLogic.Entities.ProcesoReina.PPCarnivoro;
+
+public  class IABot implements PPIIA {
     // Singleton Pattern
     private static IABot instance;
     private static String nombre;
@@ -28,7 +31,7 @@ public  class IABot implements PPIIA  {
         this.nombre = nombre;
     }
     @Override
-    public boolean ppBuscar(PPAlimento ppAlimento) {
+    public boolean ppBuscar(PPCarnivoro ppAlimento) {
         if(ppAlimento.toString().equals("Carnivoro")){
             return true;
         }else{
