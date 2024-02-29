@@ -34,6 +34,10 @@ public class HormigaBL {
         hormigaDTO = hormigaDAO.readBy(id);
         return hormigaDTO;
     }
+    public HormigaDTO ppReadLarvas(Integer id) throws Exception{
+        hormigaDTO = hormigaDAO.ppReadLarvas(id);
+        return hormigaDTO;
+    }
     public boolean update(HormigaDTO hormigaDTO) throws Exception {
         return hormigaDAO.update(hormigaDTO);
     }

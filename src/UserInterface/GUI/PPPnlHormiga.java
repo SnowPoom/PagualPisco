@@ -1,13 +1,3 @@
-/*
-|-------------------------------------|
-| © 2024 EPN-FIS, All rights reserved |
-| kevin.calles@epn.edu.ec             |
-|-------------------------------------|
-Autor: Kevin Calles
-Fecha: 28 - 02 - 2024
-Script: Panel de presentación de datos y CRUD para Clasificacion
-*/
-
 package UserInterface.GUI;
 
 import java.awt.*;
@@ -15,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,26 +13,32 @@ import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import BusinessLogic.HormigaBL;
-import DataAccess.DTO.ClasificacionDTO;
 import DataAccess.DTO.HormigaDTO;
 import UserInterface.CustomerControl.AntButton;
 import UserInterface.CustomerControl.AntLabel;
 
-public class PnlHormiga extends JPanel implements  ActionListener {
+public class PPPnlHormiga extends JPanel implements  ActionListener {
     private Integer idHormiga, idMaxHormiga,
                     nroPagina = 1, totalPaginas;
     private HormigaBL  hormigaBL  = null;
     private HormigaDTO hormigaDTO = null;
 
-    public PnlHormiga() throws Exception{
+    public PPPnlHormiga() throws Exception{
         customerSizeControl();
         loadData();
         showData();
         showTable();
+
+        ppBtnBuscar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) 
+            {   try {
+                ppBtnBuscar(e);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }    }
+        });
 
         btnIni.addActionListener(this);
         btnAnt.addActionListener(this);
@@ -54,17 +51,19 @@ public class PnlHormiga extends JPanel implements  ActionListener {
             startIndex = ((nroPagina - 1)* tamanoPagina) +1,
             endIndex = startIndex + 9;
         
-        String[] header = {"Id", "Nombre", "Estado", "FechaCrea"};
-        Object[][] data = new Object[endIndex - startIndex + 1][4];
+        String[] header = {"Id", "Código", "Clasificación", "Comió", "Estado", "Recogió"};
+        Object[][] data = new Object[10][6];
         int index = 0;
-        ClasificacionDTO cl;
+        HormigaDTO h;
         for(int i = startIndex; i <= endIndex; i++){
-            cl = clasificacionBL.getBy(i);
-            if(cl!=null){
-            data[index][0] = cl.getIdClasificacion()==0 ? "" :  cl.getIdClasificacion();
-            data[index][1] = cl.getNombre();
-            data[index][2] = cl.getEstado();
-            data[index][3] = cl.getFechaCrea();
+            h = hormigaBL.ppReadLarvas(i);
+            if(h!=null){
+                data[index][0] = h.getIdHormiga();
+                data[index][1] = h.getCodigo();
+                data[index][2] = h.getIdClasificacion();
+                data[index][3] = h.getComio();
+                data[index][4] = h.getEstado();
+                data[index][5] = h.getRecogio();
             }
             index++;
         }
@@ -84,34 +83,29 @@ public class PnlHormiga extends JPanel implements  ActionListener {
         pnlTabla.add(scrollPane);
         pnlTabla.revalidate();
         pnlTabla.repaint();
-
-        table.getSelectionModel().addListSelectionListener(new ListSelectionListener(){ 
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int col = 0;
-                int row = table.getSelectedRow();
-                String strIdClasificacion = table.getModel().getValueAt(row, col).toString();
-
-                idClasificacion = Integer.parseInt(strIdClasificacion);
-                try {
-                    clasificacionDTO = clasificacionBL.getBy(idClasificacion);
-                    showData(); 
-                } catch (Exception e1) { }  
-                System.out.println("Tabla.Selected: " + strIdClasificacion);
-            }
-        });
     }
 
     private void showData() {
-        totalPaginas = (idMaxClasificacion -1)/10+1;
+        totalPaginas = (idMaxHormiga -1)/10+1;
         lblTotalReg.setText("Página "+nroPagina+ " de "+totalPaginas);
     }
 
     private void loadData() throws Exception {
-        idClasificacion    = 1;
-        clasificacionBL    = new ClasificacionBL();
-        clasificacionDTO   = clasificacionBL.getBy(idClasificacion);
-        idMaxClasificacion = clasificacionBL.getMaxId();
+        idHormiga    = 1;
+        hormigaBL    = new HormigaBL();
+        hormigaDTO   = hormigaBL.ppReadLarvas(idHormiga);
+        idMaxHormiga = hormigaBL.getMaxId();
+    }
+
+    private void ppBtnBuscar(ActionEvent e)throws Exception{
+               
+            /* if(!personaBL.delete(personaDTO.getIdPersona()))
+                JOptionPane.showMessageDialog(this, "Error al eliminar...!",
+                                        "ERROR", JOptionPane.OK_OPTION); */
+
+            loadData();
+            showData();
+            showTable();
     }
 
 
@@ -137,16 +131,18 @@ public class PnlHormiga extends JPanel implements  ActionListener {
     
 //**********************************************
     private AntLabel 
-        lblTitulo     = new AntLabel("CLASIFICACIÓN"),
+        lblTitulo     = new AntLabel("INFO HORMIGAS"),
         lblTotalReg   = new AntLabel("  0 de 0  ");
     private AntButton  
         btnIni     = new AntButton(" |< "), 
         btnAnt     = new AntButton(" << "),            
         btnSig     = new AntButton(" >> "),
-        btnFin     = new AntButton(" >| ");
+        btnFin     = new AntButton(" >| "),
+        ppBtnBuscar = new AntButton("Buscar");
     private JPanel 
         pnlTabla   = new JPanel(),
-        pnlBtnPage = new JPanel(new FlowLayout());
+        pnlBtnPage = new JPanel(new FlowLayout()),
+        ppPnlBtnBuscar = new JPanel(new FlowLayout());
     private Border  
         line       = new LineBorder(Color.lightGray),
         margin     = new EmptyBorder(5, 5, 5, 5),
@@ -165,6 +161,9 @@ public class PnlHormiga extends JPanel implements  ActionListener {
         pnlBtnPage.add(btnSig);
         pnlBtnPage.add(btnFin);
 
+        ppPnlBtnBuscar.add(ppBtnBuscar);
+        ppPnlBtnBuscar.setBorder(border);
+
         // Restricciones generales
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -175,28 +174,23 @@ public class PnlHormiga extends JPanel implements  ActionListener {
         gbc.gridwidth = 3;
         add(lblTitulo, gbc);
 
-        // Separador
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        add(new JLabel("■ Sección de datos: "), gbc);
-
         // Sección de datos (Tabla)
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.weighty = 0;
         gbc.gridwidth = 3;
         gbc.fill = GridBagConstraints.BOTH;
         add(pnlTabla, gbc);
 
         // Sección de paginación
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         gbc.weighty = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(pnlBtnPage, gbc);
-
-        // Separador
-        gbc.gridy = 4;
-        gbc.gridwidth = 3;
-        add(new JLabel("■ Sección de registro: "), gbc);
+        // Sección de paginación
+        gbc.gridy = 3;
+        gbc.weighty = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(ppPnlBtnBuscar, gbc);
 
     }
 }
