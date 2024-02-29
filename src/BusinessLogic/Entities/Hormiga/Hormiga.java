@@ -1,21 +1,12 @@
-/*
-|-------------------------------------|
-| © 2024 EPN-FIS, All rights reserved |
-| antony.cobos@epn.edu.ec             |
-|-------------------------------------|
-Autor: Antony Cobos && Christian Pisco
-Fecha: 28 - 02 - 2024
-Script: Clase Hormiga
-*/
-
 package BusinessLogic.Entities.Hormiga;
 
 import BusinessLogic.HormigaBL;
 import BusinessLogic.Entities.AntBot.AntBot;
+import BusinessLogic.Entities.ProcesoReina.PPAlimento;
 import DataAccess.DTO.HormigaDTO;
 import Framework.AntException;
 
-public class Hormiga {
+public class Hormiga implements IHormiga {
     private AntBot antBot = null;
     private Integer idClasificacion;
     private String codigo;
@@ -74,5 +65,13 @@ public class Hormiga {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    @Override
+    public boolean comer(PPAlimento ppAlimento) {
+        if(!ppAlimento.toString().equals("Carnivoro"))
+            return false;   
+        System.out.println("Comiendo" + ppAlimento.toString());
+        return true;
     }
 }
