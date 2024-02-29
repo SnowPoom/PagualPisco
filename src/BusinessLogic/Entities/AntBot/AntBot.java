@@ -10,6 +10,8 @@ Script: Clase Hormiga
 
 package BusinessLogic.Entities.AntBot;
 
+import java.util.Hashtable;
+
 import BusinessLogic.AntBotBL;
 import BusinessLogic.Entities.IABot.IABot;
 import DataAccess.AntBotDAO;
@@ -19,6 +21,7 @@ import DataAccess.DTO.HormigaDTO;
 public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
     private AntBotBL antBotBL = new AntBotBL();
     private Integer idAntBot;
+    private Hashtable<Integer, String> ppIdiomas;
     private AntenaContacto antenaIzq;
     private AntenaContacto antenaDer;
     private Camara camara;
@@ -37,6 +40,7 @@ public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
     private CircuitoAnillado circuitoAnillado;
     private Tronco tronco;
     private IABot sBot=IABot.getInstance("IABOT");
+    
     AntBotDTO antBotDTO = null;
     public AntBot(Integer idClasificacion, HormigaDTO idHormigaDTO) throws Exception {
         super();
@@ -61,6 +65,7 @@ public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
         if(idClasificacion==5)
             tronco.agregarAlas(true);
         antBotBL.add(antBotDTO);
+        this.ppIdiomas = new Hashtable<Integer, String>();
     }
 
     public Integer getIdAntBot() throws Exception {
@@ -69,17 +74,6 @@ public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
 
     public void setIdAntBot(Integer idAntBot) throws Exception {
         idAntBot = antBotDTO.getIdAntBot();
-    }
-
-    @Override
-    public void traducirRusoIngles() {
-        System.out.println("Aprendiendo Ingles");
-        ;
-    }
-    
-    @Override
-    public void traducirRusoTecnico() {
-        System.out.println("Aprendiendo Ruso");
     }
     
     public AntenaContacto getAntenaIzq() {
@@ -208,5 +202,22 @@ public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
 
     public void setCircuitoAnillado(CircuitoAnillado circuitoAnillado) {
         this.circuitoAnillado = circuitoAnillado;
+    }
+
+    @Override
+    public void traducirInglesTecnico() {
+        ppIdiomas.put(1, "Español");
+    }
+
+    @Override
+    public void traducirRusoTecnico() {
+        ppIdiomas.put(2, "Ruso");
+    }
+
+    public void ppTraducirLenguajes() {
+        System.out.println("\nAhora, las AntBots pueden traducir:");
+        ppIdiomas.forEach((ppKey, ppValue) -> {
+            System.out.println(" > " + ppValue);
+        });
     }
 }

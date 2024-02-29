@@ -11,10 +11,12 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import UserInterface.GUI.PPPnlHormiga;
+import UserInterface.GUI.PPPnlHormigaClasificacion;
 
 public class MainForm extends JFrame implements ActionListener {
     JPanel pnlMenu, pnlContainer;
     PPPnlHormiga ppPnlHormiga;
+    PPPnlHormigaClasificacion ppPnlHormigaClasificacion;
     CardLayout cardLayout;
 
     public MainForm(String titleApp) throws Exception {
@@ -28,8 +30,10 @@ public class MainForm extends JFrame implements ActionListener {
           JMenu menu = new JMenu("Menú");
           //Nombres de los botones del menu 
           JMenuItem item1 = new JMenuItem("Panel Hormigas");
+          JMenuItem item2 = new JMenuItem("Panel Extra 1");
           
           item1.addActionListener(this);
+          item2.addActionListener(this);
           //si van a agregar mas opciones en el menu agregar nuevos JMenuItem en la parte de arriba y añadir al menu        
           // menu.add(item);
           menuBar.add(menu);
@@ -38,12 +42,16 @@ public class MainForm extends JFrame implements ActionListener {
           // Crear los paneles 
           ppPnlHormiga = new PPPnlHormiga();
           ppPnlHormiga.setBackground(Color.white);   
+          
+          ppPnlHormigaClasificacion = new PPPnlHormigaClasificacion();
+          ppPnlHormigaClasificacion.setBackground(Color.white);   
   
           // Configurar el layout de los paneles
           cardLayout = new CardLayout();
           setLayout(cardLayout);
           // usar esta estructura para añadir los paneles  a la ventana
           add(ppPnlHormiga, "Panel Hormigas");
+          add(ppPnlHormiga, "Panel Extra 1");
           
           isVisible();
           setLocationRelativeTo(null);
@@ -56,8 +64,8 @@ public class MainForm extends JFrame implements ActionListener {
           if (e.getActionCommand().equals("Panel Hormigas")) {
               cardLayout.show(getContentPane(), "Panel Hormigas");
           }
-          
-  
-          //.. seguir añadiendo
+          if (e.getActionCommand().equals("Panel Extra 1")) {
+              cardLayout.show(getContentPane(), "Panel Extra 1");
+          }
         }
 }

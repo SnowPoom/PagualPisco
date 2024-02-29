@@ -6,7 +6,7 @@ import BusinessLogic.Entities.ProcesoReina.PPAlimento;
 import DataAccess.DTO.HormigaDTO;
 import Framework.AntException;
 
-public class Hormiga implements IHormiga {
+public class Hormiga implements IPPHormiga {
     private AntBot antBot = null;
     private Integer idClasificacion;
     private String codigo;
@@ -68,7 +68,7 @@ public class Hormiga implements IHormiga {
     }
 
     @Override
-    public boolean comer(PPAlimento ppAlimento) {
+    public boolean ppComer(PPAlimento ppAlimento) {
         if(!ppAlimento.toString().equals("Carnivoro"))
             return false;   
         System.out.println("Comiendo" + ppAlimento.toString());
