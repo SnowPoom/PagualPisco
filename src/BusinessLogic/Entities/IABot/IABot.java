@@ -1,12 +1,12 @@
 package BusinessLogic.Entities.IABot;
 
-public  class IABot {
+public  class IABot implements PPIIA  {
     // Singleton Pattern
     private static IABot instance;
     private static String nombre;
 
     // hacer el constructor privado para evitar la inicializado
-    private IABot() { }
+    public IABot() { }
     protected IABot(IABot iaBot) { 
         if (iaBot != null)
             instance = iaBot;
@@ -26,5 +26,13 @@ public  class IABot {
 
     private void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    @Override
+    public boolean ppBuscar(PPAlimento ppAlimento) {
+        if(ppAlimento.toString().equals("Carnivoro")){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

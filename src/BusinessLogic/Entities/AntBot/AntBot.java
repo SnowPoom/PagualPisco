@@ -11,11 +11,12 @@ Script: Clase Hormiga
 package BusinessLogic.Entities.AntBot;
 
 import BusinessLogic.AntBotBL;
+import BusinessLogic.Entities.IABot.IABot;
 import DataAccess.AntBotDAO;
 import DataAccess.DTO.AntBotDTO;
 import DataAccess.DTO.HormigaDTO;
 
-public class AntBot implements ITecnicoRuso, ITenicoIngles {
+public class AntBot extends IABot implements ITecnicoRuso, ITenicoIngles {
     private AntBotBL antBotBL = new AntBotBL();
     private Integer idAntBot;
     private AntenaContacto antenaIzq;
@@ -34,13 +35,11 @@ public class AntBot implements ITecnicoRuso, ITenicoIngles {
     private CircuitoCarga circuitoCarga;
     private RadioComunicacion radioComunicacion;
     private CircuitoAnillado circuitoAnillado;
-    
     private Tronco tronco;
+    private IABot sBot=IABot.getInstance("IABOT");
     AntBotDTO antBotDTO = null;
-    
-    public AntBot() {}
-
     public AntBot(Integer idClasificacion, HormigaDTO idHormigaDTO) throws Exception {
+        super();
         setIdAntBot(idHormigaDTO.getIdHormiga());
         antenaIzq=      new AntenaContacto();
         antenaDer=      new AntenaContacto(); 

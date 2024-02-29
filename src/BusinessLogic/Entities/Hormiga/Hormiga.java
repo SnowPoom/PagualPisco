@@ -20,6 +20,12 @@ public class Hormiga {
     private Integer idClasificacion;
     private String codigo;
     private HormigaBL hormigaBL = new HormigaBL();
+    public Hormiga(Integer ppClasificacion) throws Exception {
+        HormigaDTO hormigaDTO = new HormigaDTO();
+        hormigaDTO.setCodigo(codigo);
+        hormigaDTO.setIdClasificacion(ppClasificacion);
+    }
+
 
     public Hormiga() throws Exception {
         HormigaDTO hormigaDTO = new HormigaDTO();
