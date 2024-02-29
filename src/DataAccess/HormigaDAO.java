@@ -20,17 +20,14 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
         String query = "INSERT INTO Hormiga("
                 + " Codigo,"
                 + " IdClasificacion,"
-                + " IdAntBot,"
                 + " Comio"
-                + " Recogio) VALUES(?, ?, ?, ?, ?) ";
+                + " ) VALUES(?, ?, ?) ";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setString(1, entity.getCodigo());
             pstmt.setInt(2, entity.getIdClasificacion());
-            pstmt.setInt(3, entity.getIdAntBot());
-            pstmt.setInt(4, entity.getComio());
-            pstmt.setInt(5, entity.getRecogio());
+            pstmt.setInt(3, entity.getComio());
             pstmt.executeUpdate();
             return true;
         } catch (Exception e) {
