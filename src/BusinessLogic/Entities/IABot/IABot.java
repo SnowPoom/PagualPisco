@@ -3,10 +3,10 @@ package BusinessLogic.Entities.IABot;
 import BusinessLogic.Entities.ProcesoReina.PPAlimento;
 import BusinessLogic.Entities.ProcesoReina.PPCarnivoro;
 
-public  class IABot implements PPIIA {
+public  class IABot implements IPPIA {
     // Singleton Pattern
     private static IABot instance;
-    private static String nombre;
+    private String nombre;
 
     // hacer el constructor privado para evitar la inicializado
     public IABot() { }
