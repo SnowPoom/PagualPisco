@@ -20,7 +20,7 @@ CREATE TABLE Hormiga(
     IdHormiga        INTEGER PRIMARY KEY AUTOINCREMENT
     ,Codigo          TEXT UNIQUE NOT NULL 
     ,IdClasificacion INTEGER NOT NULL REFERENCES Clasificacion(IdClasificacion) 
-    ,IdAntBot        INTEGER NOT NULl REFERENCES AntBot(IdAntBot)
+    ,IdAntBot        INTEGER  REFERENCES AntBot(IdAntBot)
     ,Comio           INTEGER NOT NULL DEFAULT 0
     ,Recogio         INTEGER NOT NULL DEFAULT 0
     ,Estado          TEXT DEFAULT 'A'

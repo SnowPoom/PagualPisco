@@ -153,27 +153,14 @@ public class HormigaDAO extends SQLiteDataHelper implements IDAO<HormigaDTO> {
         LocalDateTime now = LocalDateTime.now();
         
         String query = "UPDATE Hormiga SET    "
-                + "  IdHormiga=?"
-                + " ,IdAntBot=?"
-                + " ,Codigo=?"
-                + " ,IdClasificacion=?"
-                + " ,Comio=?"
-                + " ,Recogio=?"
-                + " ,FechaModifica=?"
-                + " FROM   Hormiga             "
-                + " WHERE  Estado = 'A'  ";
+                + "  Recogio=1"
+                +" WHERE IdHormiga=?";
+
 
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, entity.getIdHormiga());
-            pstmt.setInt(2, entity.getIdAntBot());
-            pstmt.setString(3, entity.getCodigo());
-            pstmt.setInt(4, entity.getIdClasificacion());
-            pstmt.setInt(5, entity.getComio());
-            pstmt.setInt(6, entity.getRecogio());
-            pstmt.setString(7, dtf.format(now).toString());
-
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
